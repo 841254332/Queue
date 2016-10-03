@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  LinkQueue.cpp
 //  Queue
 //
 //  Created by luojiahua on 16/10/3.
@@ -19,63 +19,71 @@ using namespace std;
 typedef int Status;
 typedef int ElemType;
 
-typedef struct{
-    ElemType *base;
-    int front;
-    int rear;
-}SqQueue;
+typedef struct LinkNode{
+    ElemType data;
+    struct LinkNode *next;
+}LinkNode;
 
-Status InitQueue(SqQueue &Q){
-    Q.base = new ElemType(MAXQSIZE);
-    if (!Q.base) {
+typedef struct{
+    LinkNode *front, *rear;
+}LinkQueue;
+
+Status InitQueue(LinkQueue &Q){
+    Q.front = Q.rear = new LinkNode();
+    if (!Q.front) {
         exit(OVERFLOW);
     }
-    Q.front = Q.rear = 0;
+    Q.front->next = NULL;
     return OK;
 }
 
-int QueueLengh(SqQueue Q){
-    return (Q.rear + MAXQSIZE - Q.front) % MAXQSIZE;
-}
-
-Status EnQueue(SqQueue &Q, ElemType e[], int n){
+Status EnQueue(LinkQueue &Q, ElemType a[], int n){
     for (int i = 0; i < n; i++) {
-        if ((Q.rear+1)%MAXQSIZE == Q.front) {
-            return ERROR;
+        LinkNode *p = new LinkNode;
+        if (!p) {
+            exit(OVERFLOW);
         }
-        Q.base[Q.rear] = e[i];
-        Q.rear = (Q.rear + 1) % MAXQSIZE;
+        p->data = a[i];
+        p->next = NULL;
+        Q.rear->next = p;
+        Q.rear = p;
     }
     return OK;
 }
 
-Status DeQueue(SqQueue &Q, ElemType &e){
-    if (Q.rear == Q.front) {
+Status DeQueue(LinkQueue &Q, ElemType e){
+    if (Q.front == Q.rear) {
         return ERROR;
     }
-    e = Q.base[Q.front];
-    Q.front = (Q.front + 1) % MAXQSIZE;
+    LinkNode *p = new LinkNode;
+    p = Q.front->next;
+    e = p->data;
+    Q.front->next = p->next;
+    if (p == Q.rear) {
+        Q.rear = Q.front;
+    }
+    delete p;
     return OK;
 }
-
-int ShowQueue(SqQueue Q){
-    for (int i = Q.front; i < Q.rear; i++) {
-        cout<<i<<":"<<Q.base[i]<<", ";
+int ShowQueue(LinkQueue Q){
+    LinkNode *p = new LinkNode();
+    p = Q.front->next;
+    while (p != Q.rear->next) {
+        cout<<p->data<<", ";
+        p = p->next;
     }
-    cout<<"\n";
-    return 0;
+    return OK;
 }
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    SqQueue Q = *new SqQueue;
+    LinkQueue Q = *new LinkQueue();
     InitQueue(Q);
-    int a[] = {1,2,3,4,5};
+    int a[] = {1, 2, 3, 4, 5};
     EnQueue(Q, a, 5);
-    ShowQueue(Q);
     int e;
+    ShowQueue(Q);
     DeQueue(Q, e);
     ShowQueue(Q);
-    cout << QueueLengh(Q)<<endl;
-    return 0;
+    cout<<123;
+    
 }

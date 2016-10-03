@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D444F6EC1DA2067600322BA2 /* Queue */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Queue; sourceTree = BUILT_PRODUCTS_DIR; };
+		D444F6EC1DA2067600322BA2 /* Queue */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp.preprocessed; includeInIndex = 0; path = Queue; sourceTree = BUILT_PRODUCTS_DIR; };
 		D444F6EF1DA2067600322BA2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
